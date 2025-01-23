@@ -25,13 +25,13 @@ async def register_user(db: AsyncSession, user: UserCreate):
     return new_user
 
 
-# Login user: Check username and password (without hashing)
+# Login user: Check username and password 
 async def login_user(db: AsyncSession, user: UserCreate):
     # Retrieve user from DB
     db_user = await db.execute(select(User).filter(User.username == user.username))
     db_user = db_user.scalars().first()
 
-    if db_user and db_user.password == user.password:  # Direct comparison (no hashing)
+    if db_user and db_user.password == user.password:  # will compare from the db
         return {"message": "Login successful"}
     else:
         raise HTTPException(status_code=400, detail="Invalid username or password")
