@@ -1,8 +1,13 @@
-# main.py
+# app/main.py
+
 from fastapi import FastAPI
-from app.views import router as blog_router  # Importing the router from views.py
+from users.views import router as user_router
+from app.views import router as blog_router
 
 app = FastAPI()
 
-# Include the blog routes in the FastAPI application
-app.include_router(blog_router)
+# Include the user-related routes
+app.include_router(user_router, prefix="/users", tags=["users"])
+
+# Include the blog-related routes
+app.include_router(blog_router, prefix="/blogs", tags=["blogs"])
