@@ -17,7 +17,7 @@ async def register_user(db: AsyncSession, user: UserCreate):
     if not re.match(password_pattern, user.password):
         raise HTTPException(status_code=400, detail="Password must contain at least one special character, one number, one alphabet, and not exceed 10 characters")
 
-    # Store the password directly (no hashing)
+    # Store the password directly
     new_user = User(username=user.username, password=user.password)
     
     db.add(new_user)
